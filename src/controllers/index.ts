@@ -1,10 +1,10 @@
-import { HoyoLabService } from 'services/hoyolab';
+import { MatchsService } from 'services/match';
 
 export default (): {} => {
-  const simulatorDB = Databases.simulator.db('simulator');
+  const tournamentDB = Databases.tournament.db('tournament');
 
   global.Services = {
-    hoyolab: new HoyoLabService(simulatorDB),
+    matchs: new MatchsService(tournamentDB),
   };
 
   return {};

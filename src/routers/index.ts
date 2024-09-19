@@ -1,5 +1,5 @@
 import api from './api';
-import hoyolab from './hoyolab';
+import match from './match';
 
 export default () => [
   {
@@ -7,7 +7,7 @@ export default () => [
     router: api,
   },
   {
-    path: '/hoyolab',
-    router: hoyolab,
+    path: '/match',
+    router: match,
   },
 ];

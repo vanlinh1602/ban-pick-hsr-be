@@ -2,7 +2,7 @@ import startServer from 'server';
 
 require('dotenv-flow').config();
 
-global.ProductID = 'Kuma API';
+global.ProductID = 'BanPickHSR';
 
 startServer({
   cors: {
@@ -14,13 +14,9 @@ startServer({
   // },
   port: process.env.PORT ?? '',
   databases: {
-    simulator: {
+    tournament: {
       srv: process.env.DB_SRV ?? '',
-      indexes: {
-        cookies: {
-          spec: { email: 1 },
-        },
-      },
+      indexes: {},
     },
   },
 });

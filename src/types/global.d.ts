@@ -1,6 +1,6 @@
 /* eslint-disable vars-on-top, no-var */
 import { MongoClient } from 'mongodb';
-import type { HoyoLabService } from 'services/hoyolab';
+import type { MatchsService } from 'services/match';
 import type { Logger as LoggerType } from 'winston';
 
 declare global {
@@ -11,7 +11,7 @@ declare global {
   var Databases: CustomObject<MongoClient>;
   var Logger: LoggerType;
   var Services: {
-    hoyolab: HoyoLabService;
+    matchs: MatchsService;
   };
 }
 
