@@ -6,7 +6,7 @@ global.ProductID = 'BanPickHSR';
 
 startServer({
   cors: {
-    origin: [],
+    origin: [/kuma.id.vn/],
   },
   // session: {
   //   secret: 'dev',
