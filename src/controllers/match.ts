@@ -1,7 +1,9 @@
 import { Request, Response } from 'express';
+import { validParams } from 'utils/validator';
 
 export const createMatch = async (req: Request, res: Response) => {
   try {
+    validParams(req.body, ['mathInfo']);
     const { mathInfo } = req.body;
     const match = {
       ...mathInfo,
@@ -19,16 +21,32 @@ export const createMatch = async (req: Request, res: Response) => {
 };
 
 export const getMatch = async (req: Request, res: Response) => {
-  const { id } = req.body;
-  const result = await Services.matchs.getMatch(id);
-  if (result) {
-    const { _id, ...match } = result;
-    res.send({ id: _id.toString(), ...match });
-  } else {
-    res.status(404).send('Match not found');
+  try {
+    validParams(req.body, ['id']);
+    const { id } = req.body;
+    const result = await Services.matchs.getMatch(id);
+    if (result) {
+      const { _id, ...match } = result;
+      res.send({ id: _id.toString(), ...match });
+    } else {
+      res.status(404).send('Match not found');
+    }
+  } catch (err) {
+    res.status(500).send(err);
   }
 };
 
 export const updateMatch = async (req: Request, res: Response) => {
-  res.send('updateMatch');
+  try {
+    validParams(req.body, ['match']);
+    const { match } = req.body;
+    const { id, ...matchData } = match;
+    const result = await Services.matchs.updateMatch(id, matchData);
+    if (!result) {
+      res.status(404).send('Failed to update match');
+    }
+    res.send(result);
+  } catch (err) {
+    res.status(500).send(err);
+  }
 };

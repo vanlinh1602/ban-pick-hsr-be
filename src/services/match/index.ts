@@ -31,16 +31,28 @@ export class MatchsService extends Service<Match> {
   }
 
   createMatch = async (match: Match) => {
-    const matchId = await this.collection.insertOne(match);
-    return matchId.insertedId.toString();
+    const id = new ObjectId().toString();
+    const matchId = await this.collection.updateOne({ _id: id }, { $set: match }, { upsert: true });
+    if (matchId.modifiedCount || matchId.upsertedCount) {
+      return id;
+    }
+    throw new Error('Failed to create match');
   };
 
   getMatch = async (id: string) => {
-    const match = await this.collection.findOne({ _id: new ObjectId(id) });
+    const match = await this.collection.findOne({ _id: id });
     return match;
   };
 
   updateMatch = async (id: string, match: Partial<Match>) => {
-    await this.collection.updateOne({ id }, { $set: match }, { upsert: true });
+    const result = await this.collection.findOneAndUpdate(
+      { id },
+      { $set: match },
+      { upsert: true, returnDocument: 'after' }
+    );
+    if (result) {
+      return result;
+    }
+    throw new Error('Failed to update match');
   };
 }
