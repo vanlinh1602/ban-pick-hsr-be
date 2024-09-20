@@ -6,7 +6,7 @@ import { joinRoom, leaveRoom, syncMatch } from './events';
 export default (server: http.Server) => {
   const io = new Server(server, {
     cors: {
-      origin: process.env.NODE_ENV === 'development' ? '*' : process.env.FRONTEND_URL,
+      origin: process.env.NODE_ENV === 'development' ? '*' : [/tournament.kuma.id.vn/],
       methods: ['GET', 'POST'],
     },
   });
