@@ -4,6 +4,7 @@ import http from 'http';
 import setupApp, { AppConfig } from './app';
 import setupDatabases, { DatabasesConfig } from './databases';
 import setupLogger from './logger';
+import setupSocket from './socket';
 
 export type Config = AppConfig & DatabasesConfig & { port: string };
 
@@ -16,6 +17,9 @@ export default (config: Config) => {
   app.set('port', config.port);
 
   const server = http.createServer(app);
+
+  setupSocket(server);
+
   server.listen(config.port);
   server.on('error', (error: NodeJS.ErrnoException) => {
     if (error.syscall !== 'listen') {
