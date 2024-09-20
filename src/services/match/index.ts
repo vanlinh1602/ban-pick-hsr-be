@@ -14,13 +14,14 @@ type MatchSetUpInfo = {
 
 type Match = {
   _id: string;
-  players: [string, string];
+  players: { name: string; id: string }[];
   status: 'ban-pick' | 'playing' | 'finished';
   date?: number;
   winner?: string;
   games?: {
-    player: string;
+    player: number;
     characters: string[];
+    points: number;
   }[];
   matchSetup?: MatchSetUpInfo;
 };
