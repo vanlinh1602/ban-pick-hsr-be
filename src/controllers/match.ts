@@ -45,7 +45,8 @@ export const updateMatch = async (req: Request, res: Response) => {
     if (!result) {
       res.status(404).send('Failed to update match');
     }
-    res.send(result);
+    const { _id, ...matchResult } = result;
+    res.send({ id: _id.toString(), ...matchResult });
   } catch (err) {
     res.status(500).send(err);
   }

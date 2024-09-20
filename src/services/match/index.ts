@@ -13,7 +13,7 @@ type MatchSetUpInfo = {
 };
 
 type Match = {
-  _id: string | ObjectId;
+  _id: string;
   players: [string, string];
   status: 'ban-pick' | 'playing' | 'finished';
   date?: number;
@@ -46,7 +46,7 @@ export class MatchsService extends Service<Match> {
 
   updateMatch = async (id: string, match: Partial<Match>) => {
     const result = await this.collection.findOneAndUpdate(
-      { id },
+      { _id: id },
       { $set: match },
       { upsert: true, returnDocument: 'after' }
     );
