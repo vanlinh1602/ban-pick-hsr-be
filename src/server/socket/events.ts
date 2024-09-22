@@ -1,11 +1,26 @@
 import { Socket } from 'socket.io';
+import { validParams } from 'utils/validator';
 
-export const joinRoom = (socket: Socket, room: string) => {
-  return socket.join(room);
+export const joinRoom = (socket: Socket, data: any) => {
+  try {
+    validParams(data, ['room']);
+
+    const { room } = data;
+    socket.join(room);
+  } catch (error) {
+    /* empty */
+  }
 };
 
-export const leaveRoom = (socket: Socket, room: string) => {
-  return socket.leave(room);
+export const leaveRoom = (socket: Socket, data: any) => {
+  try {
+    validParams(data, ['room']);
+
+    const { room } = data;
+    socket.leave(room);
+  } catch (error) {
+    /* empty */
+  }
 };
 
 export const syncMatch = async (socket: Socket, data: any) => {

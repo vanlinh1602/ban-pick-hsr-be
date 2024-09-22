@@ -12,9 +12,13 @@ export default (server: http.Server) => {
   });
 
   io.on('connection', (socket) => {
-    socket.on('join_room', (data) => joinRoom(socket, data.room));
-    socket.on('leave_room', (data) => leaveRoom(socket, data.room));
+    socket.on('join_room', (data) => joinRoom(socket, data));
+    socket.on('leave_room', (data) => leaveRoom(socket, data));
     socket.on('syncMatch', (data) => syncMatch(socket, data));
+
+    // socket.on('stream', (data) => {
+    //   socket.broadcast.emit('stream', data);
+    // });
   });
 
   return io;
