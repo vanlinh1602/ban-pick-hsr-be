@@ -16,7 +16,11 @@ startServer({
   databases: {
     tournament: {
       srv: process.env.DB_SRV ?? '',
-      indexes: {},
+      indexes: {
+        matchs: {
+          spec: { tournamentId: 1 },
+        },
+      },
     },
   },
 });

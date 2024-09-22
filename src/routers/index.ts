@@ -1,5 +1,6 @@
 import api from './api';
 import match from './match';
+import tournament from './tournament';
 
 export default () => [
   {
@@ -9,5 +10,9 @@ export default () => [
   {
     path: '/match',
     router: match,
+  },
+  {
+    path: '/tournament',
+    router: tournament,
   },
 ];

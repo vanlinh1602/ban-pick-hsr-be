@@ -36,6 +36,20 @@ export const getMatch = async (req: Request, res: Response) => {
   }
 };
 
+export const queryMatches = async (req: Request, res: Response) => {
+  try {
+    const { filter } = req.body;
+    const result = await Services.matchs.queryMatches(filter);
+    if (result) {
+      res.send(result);
+    } else {
+      res.status(404).send('Matches not found');
+    }
+  } catch (err) {
+    res.status(500).send(err);
+  }
+};
+
 export const updateMatch = async (req: Request, res: Response) => {
   try {
     validParams(req.body, ['match']);

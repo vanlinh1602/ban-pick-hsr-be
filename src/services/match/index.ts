@@ -1,5 +1,5 @@
 /* eslint-disable class-methods-use-this */
-import { Db, ObjectId } from 'mongodb';
+import { Db, Filter, ObjectId } from 'mongodb';
 import Service from 'services';
 
 type MatchSetUpInfo = {
@@ -43,6 +43,11 @@ export class MatchsService extends Service<Match> {
   getMatch = async (id: string) => {
     const match = await this.collection.findOne({ _id: id });
     return match;
+  };
+
+  queryMatches = async (filter: Filter<Match>): Promise<Match[]> => {
+    const matches = await this.collection.find({ ...filter }).toArray();
+    return matches;
   };
 
   updateMatch = async (id: string, match: Partial<Match>) => {
