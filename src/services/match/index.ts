@@ -2,9 +2,15 @@
 import { Db, Filter, ObjectId } from 'mongodb';
 import Service from 'services';
 
+type Player = {
+  id: string;
+  name: string;
+  email: string;
+};
+
 type MatchSetUpInfo = {
   banPickStatus: {
-    player: string;
+    player: number;
     type: 'ban' | 'pick';
     character?: string;
   }[];
@@ -12,12 +18,13 @@ type MatchSetUpInfo = {
   goFirst: number;
 };
 
-type Match = {
-  _id: string;
-  players: { name: string; id: string }[];
-  status: 'ban-pick' | 'playing' | 'finished';
+export type Match = {
+  _id: ObjectId;
+  players: Player[];
+  status: 'set-up' | 'ban-pick' | 'playing' | 'finished';
   date?: number;
-  winner?: string;
+  tournamentId?: string;
+  winner?: number;
   games?: {
     player: number;
     characters: string[];
@@ -26,22 +33,22 @@ type Match = {
   matchSetup?: MatchSetUpInfo;
 };
 
-export class MatchsService extends Service<Match> {
+export class MatchesService extends Service<Match> {
   constructor(db: Db) {
     super(db, 'matchs');
   }
 
   createMatch = async (match: Match) => {
-    const id = new ObjectId().toString();
-    const matchId = await this.collection.updateOne({ _id: id }, { $set: match }, { upsert: true });
-    if (matchId.modifiedCount || matchId.upsertedCount) {
-      return id;
+    const matchId = await this.collection.insertOne(match);
+    if (matchId.insertedId) {
+      return matchId.insertedId.toString();
     }
     throw new Error('Failed to create match');
   };
 
   getMatch = async (id: string) => {
-    const match = await this.collection.findOne({ _id: id });
+    const idObj = new ObjectId(id);
+    const match = await this.collection.findOne({ _id: idObj });
     return match;
   };
 
@@ -51,8 +58,9 @@ export class MatchsService extends Service<Match> {
   };
 
   updateMatch = async (id: string, match: Partial<Match>) => {
+    const idObj = new ObjectId(id);
     const result = await this.collection.findOneAndUpdate(
-      { _id: id },
+      { _id: idObj },
       { $set: match },
       { upsert: true, returnDocument: 'after' }
     );

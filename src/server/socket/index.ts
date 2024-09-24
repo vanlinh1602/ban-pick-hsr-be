@@ -16,9 +16,9 @@ export default (server: http.Server) => {
     socket.on('leave_room', (data) => leaveRoom(socket, data));
     socket.on('syncMatch', (data) => syncMatch(socket, data));
 
-    // socket.on('stream', (data) => {
-    //   socket.broadcast.emit('stream', data);
-    // });
+    socket.on('stream', (data) => {
+      socket.broadcast.emit('stream', data);
+    });
   });
 
   return io;

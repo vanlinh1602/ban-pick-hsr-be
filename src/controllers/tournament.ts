@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { Match } from 'services/match';
 import { Tournament } from 'services/tournament';
 import { validParams } from 'utils/validator';
 
@@ -42,12 +43,45 @@ export const getTournaments = async (req: Request, res: Response) => {
 
 export const updateTournament = async (req: Request, res: Response) => {
   try {
-    validParams(req.body, ['match']);
-    const { match } = req.body;
-    const { id, ...matchData } = match;
-    const result = await Services.matchs.updateMatch(id, matchData);
+    validParams(req.body, ['data']);
+    const { data } = req.body;
+    const { id, ...tournamentData } = data;
+    const result = await Services.tournaments.updateTournament(id, tournamentData);
     if (!result) {
       res.status(404).send('Failed to update match');
+    }
+    const { _id, ...matchResult } = result;
+    res.send({ id: _id.toString(), ...matchResult });
+  } catch (err) {
+    res.status(500).send(err);
+  }
+};
+
+export const saveBracket = async (req: Request, res: Response) => {
+  try {
+    validParams(req.body, ['id', 'rounds', 'players']);
+    const { id, rounds, players } = req.body as { id: string; rounds: Match[][]; players: any };
+
+    const bracket = await Promise.all(
+      rounds.map(async (round, index) => {
+        const matchIds = await Promise.all(
+          round.map((match) =>
+            Services.matches.createMatch({
+              players: match.players,
+              status: match.status,
+              tournamentId: id,
+            } as any)
+          )
+        );
+        return {
+          round: `Round ${index + 1}`,
+          matches: matchIds,
+        };
+      })
+    );
+    const result = await Services.tournaments.updateTournament(id, { rounds: bracket, players });
+    if (!result) {
+      res.status(404).send('Failed to save bracket');
     }
     const { _id, ...matchResult } = result;
     res.send({ id: _id.toString(), ...matchResult });

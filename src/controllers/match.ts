@@ -9,7 +9,7 @@ export const createMatch = async (req: Request, res: Response) => {
       ...mathInfo,
       status: 'ban-pick',
     };
-    const result = await Services.matchs.createMatch(match);
+    const result = await Services.matches.createMatch(match);
     if (result) {
       res.send({ id: result });
     } else {
@@ -24,7 +24,7 @@ export const getMatch = async (req: Request, res: Response) => {
   try {
     validParams(req.body, ['id']);
     const { id } = req.body;
-    const result = await Services.matchs.getMatch(id);
+    const result = await Services.matches.getMatch(id);
     if (result) {
       const { _id, ...match } = result;
       res.send({ id: _id.toString(), ...match });
@@ -39,9 +39,9 @@ export const getMatch = async (req: Request, res: Response) => {
 export const queryMatches = async (req: Request, res: Response) => {
   try {
     const { filter } = req.body;
-    const result = await Services.matchs.queryMatches(filter);
+    const result = await Services.matches.queryMatches(filter);
     if (result) {
-      res.send(result);
+      res.send(result.map(({ _id, ...match }) => ({ id: _id.toString(), ...match })));
     } else {
       res.status(404).send('Matches not found');
     }
@@ -55,7 +55,7 @@ export const updateMatch = async (req: Request, res: Response) => {
     validParams(req.body, ['match']);
     const { match } = req.body;
     const { id, ...matchData } = match;
-    const result = await Services.matchs.updateMatch(id, matchData);
+    const result = await Services.matches.updateMatch(id, matchData);
     if (!result) {
       res.status(404).send('Failed to update match');
     }

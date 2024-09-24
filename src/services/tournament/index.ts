@@ -2,13 +2,26 @@
 import { Db, ObjectId, WithId } from 'mongodb';
 import Service from 'services';
 
+type Player = {
+  id: string;
+  name: string;
+  email: string;
+};
+
 export type Tournament = {
   _id: string;
   name: string;
-  date: number;
+  date: {
+    from: number;
+    to?: number;
+  };
   organizer: string;
   description: string;
-  status: 'open' | 'closed';
+  players: Player[];
+  rounds?: {
+    round: string;
+    matches: string[];
+  }[];
 };
 
 export class TournamentService extends Service<Tournament> {

@@ -1,11 +1,11 @@
-import { MatchsService } from 'services/match';
+import { MatchesService } from 'services/match';
 import { TournamentService } from 'services/tournament';
 
 export default (): {} => {
   const tournamentDB = Databases.tournament.db('tournament');
 
   global.Services = {
-    matchs: new MatchsService(tournamentDB),
+    matches: new MatchesService(tournamentDB),
     tournaments: new TournamentService(tournamentDB),
   };
 
