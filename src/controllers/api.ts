@@ -1,13 +1,15 @@
 import { Request, Response } from 'express';
 
 import characters from '../resources/characters.json';
-import combatTypes from '../resources/combatTypes.json';
-import paths from '../resources/paths.json';
+import filterCharacter from '../resources/filterCharacter.json';
+import filterLightCone from '../resources/filterLightCone.json';
+import lightCones from '../resources/lightCones.json';
 
 export const getResource = (req: Request, res: Response) => {
   res.send({
     characters,
-    combatTypes,
-    paths,
+    lightCones,
+    filterCharacter,
+    filterLightCone,
   });
 };

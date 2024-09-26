@@ -6,8 +6,8 @@ export const createMatch = async (req: Request, res: Response) => {
     validParams(req.body, ['mathInfo']);
     const { mathInfo } = req.body;
     const match = {
+      status: 'set-up',
       ...mathInfo,
-      status: 'ban-pick',
     };
     const result = await Services.matches.createMatch(match);
     if (result) {

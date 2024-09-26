@@ -36,3 +36,15 @@ export const syncMatch = async (socket: Socket, data: any) => {
     /* empty */
   }
 };
+
+export const syncUserAction = async (socket: Socket, data: any) => {
+  try {
+    if (!data.room) {
+      return;
+    }
+    const { room, ...rest } = data;
+    socket.to(room).emit('userAction', { ...rest });
+  } catch (error) {
+    /* empty */
+  }
+};

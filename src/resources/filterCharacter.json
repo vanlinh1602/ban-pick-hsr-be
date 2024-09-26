@@ -1,0 +1,243 @@
+{
+  "character_combat_type": {
+    "key": "character_combat_type",
+    "text": "Thuộc Tính Chiến Đấu",
+    "values": [
+      {
+        "id": "1285",
+        "value": "Lượng Tử",
+        "mi18n_key": "filter_1285",
+        "icon": "https://act-webstatic.hoyoverse.com/event-static-hoyowiki-admin/2024/03/27/2d33de43649b480e1d6a9fdb6599b2cb_7381386544905042228.png",
+        "enum_string": "quantum"
+      },
+      {
+        "id": "1297",
+        "value": "Vật Lý",
+        "mi18n_key": "filter_1297",
+        "icon": "https://act-webstatic.hoyoverse.com/event-static-hoyowiki-admin/2024/03/27/43a362875c2955a66ef6cd9236dbf57d_7293610557288342137.png",
+        "enum_string": "physical"
+      },
+      {
+        "id": "1314",
+        "value": "Phong",
+        "mi18n_key": "filter_1314",
+        "icon": "https://act-webstatic.hoyoverse.com/event-static-hoyowiki-admin/2024/03/27/8d2992ae95dfe1469af254b923b1129c_5790926101190505253.png",
+        "enum_string": "wind"
+      },
+      {
+        "id": "1322",
+        "value": "Hỏa",
+        "mi18n_key": "filter_1322",
+        "icon": "https://act-webstatic.hoyoverse.com/event-static-hoyowiki-admin/2024/03/27/ade90b393f1dfffe731766ed98c78746_8365675559481569213.png",
+        "enum_string": "fire"
+      },
+      {
+        "id": "1341",
+        "value": "Số Ảo",
+        "mi18n_key": "filter_1341",
+        "icon": "https://act-webstatic.hoyoverse.com/event-static-hoyowiki-admin/2024/03/27/9ab11de799de29f5c6abbac0a2b305e1_7514369334565575603.png",
+        "enum_string": "imaginary"
+      },
+      {
+        "id": "1357",
+        "value": "Lôi",
+        "mi18n_key": "filter_1357",
+        "icon": "https://act-webstatic.hoyoverse.com/event-static-hoyowiki-admin/2024/03/27/c3bf245ff0e28fab91b126fa8a24917b_5287731351692004917.png",
+        "enum_string": "lightning"
+      },
+      {
+        "id": "1371",
+        "value": "Băng",
+        "mi18n_key": "filter_1371",
+        "icon": "https://act-webstatic.hoyoverse.com/event-static-hoyowiki-admin/2024/03/27/e7fda5adc3b8ee20cef753b61ff0ed08_8813940564670780996.png",
+        "enum_string": "ice"
+      }
+    ]
+  },
+  "character_paths": {
+    "key": "character_paths",
+    "text": "Vận Mệnh",
+    "values": [
+      {
+        "id": "1384",
+        "value": "Hủy Diệt",
+        "mi18n_key": "filter_1384",
+        "icon": "https://act-webstatic.hoyoverse.com/event-static-hoyowiki-admin/2024/03/27/715197244815c84eaf80b1644af7d9bc_5620687503360171464.png",
+        "enum_string": "destruction"
+      },
+      {
+        "id": "1394",
+        "value": "Săn Bắn",
+        "mi18n_key": "filter_1394",
+        "icon": "https://act-webstatic.hoyoverse.com/event-static-hoyowiki-admin/2024/03/27/c7aa25b129ea061e89c1c5f8b65c6686_7961003512756860180.png",
+        "enum_string": "hunt"
+      },
+      {
+        "id": "1405",
+        "value": "Tri Thức",
+        "mi18n_key": "filter_1405",
+        "icon": "https://act-webstatic.hoyoverse.com/event-static-hoyowiki-admin/2024/03/27/a8458ce1c20e430c14ef937a260c0863_3461382062600394571.png",
+        "enum_string": "erudition"
+      },
+      {
+        "id": "1421",
+        "value": "Hòa Hợp",
+        "mi18n_key": "filter_1421",
+        "icon": "https://act-webstatic.hoyoverse.com/event-static-hoyowiki-admin/2024/03/27/e84ddead5d9a26c3827428cb4358f05e_5825200323544808775.png",
+        "enum_string": "harmony"
+      },
+      {
+        "id": "1429",
+        "value": "Hư Vô",
+        "mi18n_key": "filter_1429",
+        "icon": "https://act-webstatic.hoyoverse.com/event-static-hoyowiki-admin/2024/03/27/022ca2fa7843ec5dcbc882e6b99d3849_5658173062357230596.png",
+        "enum_string": "nihility"
+      },
+      {
+        "id": "1445",
+        "value": "Bảo Hộ",
+        "mi18n_key": "filter_1445",
+        "icon": "https://act-webstatic.hoyoverse.com/event-static-hoyowiki-admin/2024/03/27/b60f0820cb22a4d9817befd2f53bb30a_4519413180795083617.png",
+        "enum_string": "preservation"
+      },
+      {
+        "id": "1454",
+        "value": "Trù Phú",
+        "mi18n_key": "filter_1454",
+        "icon": "https://act-webstatic.hoyoverse.com/event-static-hoyowiki-admin/2024/03/27/b9d6d0e7ab963fd6c6ee778e826be66e_2240319466702070435.png",
+        "enum_string": "abundance"
+      }
+    ]
+  },
+  "character_rarity": {
+    "key": "character_rarity",
+    "text": "Độ Hiếm",
+    "values": [
+      {
+        "id": "1468",
+        "value": "4 sao",
+        "mi18n_key": "filter_1468",
+        "icon": "",
+        "enum_string": "4"
+      },
+      {
+        "id": "1488",
+        "value": "5 sao",
+        "mi18n_key": "filter_1488",
+        "icon": "",
+        "enum_string": "5"
+      }
+    ]
+  },
+  "character_factions": {
+    "key": "character_factions",
+    "text": "Phe phái",
+    "values": [
+      {
+        "id": "1496",
+        "value": "Đội Tàu Astral",
+        "mi18n_key": "filter_1496",
+        "icon": "",
+        "enum_string": ""
+      },
+      {
+        "id": "1513",
+        "value": "Trạm Không Gian Herta",
+        "mi18n_key": "filter_1513",
+        "icon": "",
+        "enum_string": ""
+      },
+      {
+        "id": "1524",
+        "value": "Jarilo-VI",
+        "mi18n_key": "filter_1524",
+        "icon": "",
+        "enum_string": ""
+      },
+      {
+        "id": "1538",
+        "value": "Xianzhou \"Luofu\"",
+        "mi18n_key": "filter_1538",
+        "icon": "",
+        "enum_string": ""
+      },
+      {
+        "id": "1544",
+        "value": "Thợ Săn Stellaron",
+        "mi18n_key": "filter_1544",
+        "icon": "",
+        "enum_string": ""
+      },
+      {
+        "id": "3356",
+        "value": "Công Ty Hành Tinh Hòa Bình",
+        "mi18n_key": "filter_3356",
+        "icon": "",
+        "enum_string": ""
+      },
+      {
+        "id": "3383",
+        "value": "Đội Kỵ Sĩ Đẹp Thuần Khiết",
+        "mi18n_key": "filter_3383",
+        "icon": "",
+        "enum_string": ""
+      },
+      {
+        "id": "3449",
+        "value": "Kẻ Ngốc Đeo Mặt Nạ",
+        "mi18n_key": "filter_custom_6",
+        "icon": "",
+        "enum_string": ""
+      },
+      {
+        "id": "3450",
+        "value": "Sảnh Đường Hồi Ức",
+        "mi18n_key": "filter_custom_1",
+        "icon": "",
+        "enum_string": ""
+      },
+      {
+        "id": "3451",
+        "value": "Penacony",
+        "mi18n_key": "filter_custom_2",
+        "icon": "",
+        "enum_string": ""
+      },
+      {
+        "id": "3452",
+        "value": "Cảnh Binh Thiên Hà",
+        "mi18n_key": "filter_custom_3",
+        "icon": "",
+        "enum_string": ""
+      },
+      {
+        "id": "3453",
+        "value": "Kẻ Tự Hủy Diệt",
+        "mi18n_key": "filter_custom_4",
+        "icon": "",
+        "enum_string": ""
+      },
+      {
+        "id": "3454",
+        "value": "Hội Trí Thức",
+        "mi18n_key": "filter_custom_5",
+        "icon": "",
+        "enum_string": ""
+      },
+      {
+        "id": "3471",
+        "value": "Xianzhou Zhuming",
+        "mi18n_key": "filter_custom_11",
+        "icon": "",
+        "enum_string": ""
+      },
+      {
+        "id": "3472",
+        "value": "Xianzhou Yaoqing",
+        "mi18n_key": "filter_custom_12",
+        "icon": "",
+        "enum_string": ""
+      }
+    ]
+  }
+}

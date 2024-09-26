@@ -1,7 +1,7 @@
 import http from 'http';
 import { Server } from 'socket.io';
 
-import { joinRoom, leaveRoom, syncMatch } from './events';
+import { joinRoom, leaveRoom, syncMatch, syncUserAction } from './events';
 
 export default (server: http.Server) => {
   const io = new Server(server, {
@@ -15,6 +15,7 @@ export default (server: http.Server) => {
     socket.on('join_room', (data) => joinRoom(socket, data));
     socket.on('leave_room', (data) => leaveRoom(socket, data));
     socket.on('syncMatch', (data) => syncMatch(socket, data));
+    socket.on('syncUserAction', (data) => syncUserAction(socket, data));
 
     socket.on('stream', (data) => {
       socket.broadcast.emit('stream', data);
