@@ -10,6 +10,7 @@ module.exports = {
     ProductID: true,
     NodeJS: true,
     Logger: true,
+    Resources: true,
   },
   extends: [
     'airbnb-base',

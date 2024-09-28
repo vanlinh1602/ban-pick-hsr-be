@@ -1,5 +1,6 @@
 /* eslint-disable vars-on-top, no-var */
 import { MongoClient } from 'mongodb';
+import type { ConfigService } from 'services/configs';
 import type { MatchesService } from 'services/match';
 import type { TournamentService } from 'services/tournament';
 import type { Logger as LoggerType } from 'winston';
@@ -14,6 +15,10 @@ declare global {
   var Services: {
     matches: MatchesService;
     tournaments: TournamentService;
+    configs: ConfigService;
+  };
+  var Resources: {
+    configs: CustomObject<any>;
   };
 }
 
