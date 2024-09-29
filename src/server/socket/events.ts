@@ -30,8 +30,9 @@ export const syncMatch = async (socket: Socket, data: any) => {
     }
     const { room, match } = data;
     const { id, ...rest } = match;
-    await Services.matches.updateMatch(id, rest);
-    socket.to(room).emit('updateMatch', match);
+    const matchUpdate = await Services.matches.updateMatch(id, rest);
+    const { _id, ...matchData } = matchUpdate;
+    socket.to(room).emit('updateMatch', { id: _id, ...matchData });
   } catch (error) {
     /* empty */
   }

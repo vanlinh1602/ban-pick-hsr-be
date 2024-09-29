@@ -18,10 +18,9 @@ export type Tournament = {
   organizer: string;
   description: string;
   players: Player[];
-  rounds?: {
-    round: string;
-    matches: string[];
-  }[];
+  format: 'single' | 'double';
+  status: 'set-up' | 'start' | 'finished';
+  rounds?: CustomObject<string[]>[];
 };
 
 export class TournamentService extends Service<Tournament> {

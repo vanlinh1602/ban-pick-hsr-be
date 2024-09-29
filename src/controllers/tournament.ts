@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { set } from 'lodash';
 import { Match } from 'services/match';
 import { Tournament } from 'services/tournament';
 import { validParams } from 'utils/validator';
@@ -59,27 +60,36 @@ export const updateTournament = async (req: Request, res: Response) => {
 
 export const saveBracket = async (req: Request, res: Response) => {
   try {
-    validParams(req.body, ['id', 'rounds', 'players']);
-    const { id, rounds, players } = req.body as { id: string; rounds: Match[][]; players: any };
-
-    const bracket = await Promise.all(
-      rounds.map(async (round, index) => {
-        const matchIds = await Promise.all(
-          round.map((match) =>
-            Services.matches.createMatch({
-              players: match.players,
-              status: match.status,
-              tournamentId: id,
-            } as any)
-          )
+    validParams(req.body, ['tournament', 'rounds']);
+    const { tournament, rounds } = req.body as {
+      tournament: Partial<Tournament & { id: string }>;
+      rounds: CustomObject<Match[]>[];
+    };
+    const roundsUpdate: CustomObject<string[]>[] = [];
+    await Promise.all(
+      rounds.map(async (round, roundIndex) => {
+        await Promise.all(
+          Object.entries(round).map(async ([roundName, matches]) => {
+            const matchIds = await Promise.all(
+              matches.map(async (match) => {
+                const { id: _id, ...matchData } = match as any;
+                const result = await Services.matches.createMatch({
+                  ...matchData,
+                  tournamentId: tournament.id,
+                });
+                return result;
+              })
+            );
+            set(roundsUpdate, [roundIndex, roundName], matchIds);
+          })
         );
-        return {
-          round: `Round ${index + 1}`,
-          matches: matchIds,
-        };
       })
     );
-    const result = await Services.tournaments.updateTournament(id, { rounds: bracket, players });
+    const { id, ...tournamentData } = tournament;
+    const result = await Services.tournaments.updateTournament(id!, {
+      ...tournamentData,
+      rounds: roundsUpdate,
+    });
     if (!result) {
       res.status(404).send('Failed to save bracket');
     }

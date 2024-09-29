@@ -3,11 +3,11 @@ import { validParams } from 'utils/validator';
 
 export const createMatch = async (req: Request, res: Response) => {
   try {
-    validParams(req.body, ['mathInfo']);
-    const { mathInfo } = req.body;
+    validParams(req.body, ['matchInfo']);
+    const { matchInfo } = req.body;
     const match = {
       status: 'set-up',
-      ...mathInfo,
+      ...matchInfo,
     };
     const result = await Services.matches.createMatch(match);
     if (result) {
@@ -52,15 +52,19 @@ export const queryMatches = async (req: Request, res: Response) => {
 
 export const updateMatch = async (req: Request, res: Response) => {
   try {
-    validParams(req.body, ['match']);
-    const { match } = req.body;
-    const { id, ...matchData } = match;
-    const result = await Services.matches.updateMatch(id, matchData);
-    if (!result) {
-      res.status(404).send('Failed to update match');
-    }
-    const { _id, ...matchResult } = result;
-    res.send({ id: _id.toString(), ...matchResult });
+    validParams(req.body, ['matches']);
+    const { matches } = req.body;
+
+    const result: any[] = await Promise.all(
+      matches.map(async (match: any) => {
+        const { id, ...matchData } = match;
+        const updated = await Services.matches.updateMatch(id, matchData);
+        const { _id, ...matchResult } = updated;
+        return { id: _id.toString(), ...matchResult };
+      })
+    );
+
+    res.send(result);
   } catch (err) {
     res.status(500).send(err);
   }
