@@ -2,6 +2,7 @@
 .eslintcache
 npm-debug.log*
 *.log
+.env.*
 
 node_modules
 dist
