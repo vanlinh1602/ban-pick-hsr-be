@@ -49,3 +49,51 @@ export const syncUserAction = async (socket: Socket, data: any) => {
     /* empty */
   }
 };
+
+export const iceCandidate = (socket: Socket, data: any) => {
+  try {
+    if (!data.room) {
+      return;
+    }
+    const { room, ...rest } = data;
+    socket.to(room).emit('ice-candidate', { ...rest });
+  } catch (error) {
+    /* empty */
+  }
+};
+
+export const offer = (socket: Socket, data: any) => {
+  try {
+    if (!data.room) {
+      return;
+    }
+    const { room, ...rest } = data;
+    socket.to(room).emit('offer', { ...rest });
+  } catch (error) {
+    /* empty */
+  }
+};
+
+export const answer = (socket: Socket, data: any) => {
+  try {
+    if (!data.room) {
+      return;
+    }
+    const { room, ...rest } = data;
+    socket.to(room).emit('answer', { ...rest });
+  } catch (error) {
+    /* empty */
+  }
+};
+
+export const endStream = (socket: Socket, data: any) => {
+  try {
+    if (!data.room) {
+      return;
+    }
+    const { room } = data;
+    socket.to(room).emit('end-stream');
+  } catch (error) {
+    /* empty */
+  }
+};

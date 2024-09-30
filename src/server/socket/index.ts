@@ -1,7 +1,16 @@
 import http from 'http';
 import { Server } from 'socket.io';
 
-import { joinRoom, leaveRoom, syncMatch, syncUserAction } from './events';
+import {
+  answer,
+  endStream,
+  iceCandidate,
+  joinRoom,
+  leaveRoom,
+  offer,
+  syncMatch,
+  syncUserAction,
+} from './events';
 
 export default (server: http.Server) => {
   const io = new Server(server, {
@@ -17,9 +26,13 @@ export default (server: http.Server) => {
     socket.on('syncMatch', (data) => syncMatch(socket, data));
     socket.on('syncUserAction', (data) => syncUserAction(socket, data));
 
-    socket.on('stream', (data) => {
-      socket.broadcast.emit('stream', data);
-    });
+    socket.on('offer', (data) => offer(socket, data));
+
+    socket.on('ice-candidate', (data) => iceCandidate(socket, data));
+
+    socket.on('answer', (data) => answer(socket, data));
+
+    socket.on('end-stream', (data) => endStream(socket, data));
   });
 
   return io;
