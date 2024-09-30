@@ -1,5 +1,5 @@
 {
-  "name": "kuma-backend",
+  "name": "tournament-backend",
   "version": "1.0.0",
   "description": "",
   "main": ".eslintrc.js",
@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/monsieur-kuma/kuma-backend.git"
+    "url": "git+https://github.com/vanlinh1602/tournament-be.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/monsieur-kuma/kuma-backend/issues"
+    "url": "https://github.com/vanlinh1602/tournament-be/issues"
   },
-  "homepage": "https://github.com/monsieur-kuma/kuma-backend#readme",
+  "homepage": "https://github.com/vanlinh1602/tournament-be#readme",
   "dependencies": {
     "@google-cloud/storage": "^7.7.0",
     "async": "^3.2.4",
