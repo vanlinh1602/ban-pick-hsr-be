@@ -40,6 +40,7 @@ export type Match = {
     email?: string;
   };
   matchSetup?: MatchSetUpInfo;
+  isLive?: boolean;
 };
 
 export class MatchesService extends Service<Match> {
