@@ -47,8 +47,7 @@ export const createWebRtcTransport = async (
       listenIps: [
         {
           ip: '0.0.0.0',
-          announcedIp:
-            process.env.NODE_ENV === 'development' ? '127.0.0.1' : 'tournament.kuma.id.vn',
+          announcedIp: process.env.NODE_ENV === 'development' ? '127.0.0.1' : process.env.PUBLIC_IP,
         },
       ],
       enableUdp: true,
