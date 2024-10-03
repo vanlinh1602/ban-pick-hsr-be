@@ -18,7 +18,7 @@ export default async (server: http.Server) => {
 
   const transports: CustomObject<{
     info: {
-      producerId: string;
+      producerIds: CustomObject<string>;
     };
     producer: WebRtcTransport<AppData>;
     consumer: CustomObject<WebRtcTransport<AppData>>;
@@ -71,9 +71,7 @@ export default async (server: http.Server) => {
       producer.on('transportclose', () => {
         producer.close();
       });
-
-      set(transports, `${room}.info.producerId`, producer.id);
-
+      set(transports, `${room}.info.producerIds.${kind}`, producer.id);
       callback({
         id: producer.id,
       });
@@ -85,43 +83,41 @@ export default async (server: http.Server) => {
 
     socket.on('consume', async ({ rtpCapabilities, room, viewerId }, callback) => {
       try {
-        if (
-          router.canConsume({
-            producerId: transports[room].info.producerId,
-            rtpCapabilities,
+        const params: CustomObject<{
+          id: string;
+          producerId: string;
+          kind: string;
+          rtpParameters: any;
+        }> = {};
+        await Promise.all(
+          Object.entries(transports[room].info.producerIds).map(async ([kind, producerId]) => {
+            if (router.canConsume({ producerId, rtpCapabilities })) {
+              const consumer = await transports[room].consumer[viewerId].consume({
+                producerId,
+                rtpCapabilities,
+                paused: true,
+              });
+
+              consumer.on('transportclose', () => {
+                consumer.close();
+              });
+
+              consumer.on('producerclose', () => {
+                consumer.close();
+              });
+
+              params[kind] = {
+                id: consumer.id,
+                producerId,
+                kind: consumer.kind,
+                rtpParameters: consumer.rtpParameters,
+              };
+              await consumer.resume();
+            }
           })
-        ) {
-          // transport can now consume and return a consumer
-          const consumer = await transports[room].consumer[viewerId].consume({
-            producerId: transports[room].info.producerId,
-            rtpCapabilities,
-            paused: true,
-          });
-
-          consumer.on('transportclose', () => {
-            consumer.close();
-            Logger.info(`Match: ${room} - transport close from consumer`);
-          });
-
-          consumer.on('producerclose', () => {
-            consumer.close();
-            Logger.info(`Match: ${room} - transport close from consumer`);
-          });
-
-          // from the consumer extract the following params
-          // to send back to the Client
-          const params = {
-            id: consumer.id,
-            producerId: transports[room].info.producerId,
-            kind: consumer.kind,
-            rtpParameters: consumer.rtpParameters,
-          };
-
-          await consumer.resume();
-          unset(transports, `${room}.consumer${viewerId}`);
-          // send the parameters to the client
-          callback({ params });
-        }
+        );
+        unset(transports, `${room}.consumer${viewerId}`);
+        callback(params);
       } catch (error: any) {
         Logger.error(`Match: ${room} - consume error: ${error}`);
         callback({
