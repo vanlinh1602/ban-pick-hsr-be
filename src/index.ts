@@ -1,3 +1,5 @@
+import './server/firebase';
+
 import { WithoutId } from 'mongodb';
 import startServer from 'server';
 import { Config } from 'services/configs';
@@ -10,10 +12,10 @@ const server = startServer({
   cors: {
     origin: [/tournament.kuma.id.vn/],
   },
-  // session: {
-  //   secret: 'dev',
-  //   store: process.env.DB_SRV ?? '',
-  // },
+  session: {
+    secret: 'dev',
+    store: process.env.DB_SRV ?? '',
+  },
   port: process.env.PORT ?? '',
   databases: {
     tournament: {
