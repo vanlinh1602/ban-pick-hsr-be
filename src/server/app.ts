@@ -45,6 +45,8 @@ export default (config: AppConfig) => {
     app.use(
       session({
         name: ProductID,
+        resave: false,
+        saveUninitialized: true,
         proxy: true,
         cookie:
           process.env.NODE_ENV === 'development'
@@ -52,6 +54,7 @@ export default (config: AppConfig) => {
             : {
                 secure: true,
                 sameSite: 'none',
+                domain: '.kuma.id.vn',
               },
         secret: config.session.secret,
         store: MongoStore.create({

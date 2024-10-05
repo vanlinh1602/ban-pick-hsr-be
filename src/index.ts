@@ -13,7 +13,7 @@ const server = startServer({
     origin: [/tournament.kuma.id.vn/],
   },
   session: {
-    secret: 'dev',
+    secret: process.env.SS_SECRET ?? 'dev',
     store: process.env.DB_SRV ?? '',
   },
   port: process.env.PORT ?? '',
