@@ -6,7 +6,7 @@ import { Config } from 'services/configs';
 
 require('dotenv-flow').config();
 
-global.ProductID = 'BanPickHSR';
+global.ProductID = 'tournament';
 
 const server = startServer({
   cors: {
