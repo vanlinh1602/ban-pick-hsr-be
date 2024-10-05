@@ -75,6 +75,7 @@ export const saveBracket = async (req: Request, res: Response) => {
                 const { id: _id, ...matchData } = match as any;
                 const result = await Services.matches.createMatch({
                   ...matchData,
+                  host: tournament.organizer?.id,
                   tournamentId: tournament.id,
                 });
                 return result;
